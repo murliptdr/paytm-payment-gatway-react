@@ -11,10 +11,11 @@ export function PaytmButton () {
         amount: ""
     });
     const [loading, setLoading] = useState(false);
+    const [money, setMoney] = useState(null);
 
     useEffect(() => {
         initialize();
-    }, []);
+    }, [money]);
 
     const initialize = () => {
         let orderId = 'Order_'+new Date().getTime();
@@ -31,7 +32,7 @@ export function PaytmButton () {
             "orderId"       : orderId,
             "callbackUrl"   : "https://merchant.com/callback",
             "txnAmount"     : {
-                "value"     : 100,
+                "value"     : money,
                 "currency"  : "INR",
             },
             "userInfo"      : {
@@ -76,7 +77,7 @@ export function PaytmButton () {
                         token: JSON.parse(response).body.txnToken, 
                         order: orderId, 
                         mid: mid,
-                        amount: 100
+                        amount:money
                     })
                 });
             });
@@ -160,8 +161,9 @@ export function PaytmButton () {
             {
                 loading ? (
                     <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" />
-                ) : (
-                    <button onClick={makePayment}>Pay Now</button>
+                ) : (<center>
+                  <input type="int" value={money} onChange={(e)=> setMoney(e.target.value)}/>
+                    <button style={{marginTop:'30px'}} onClick={makePayment}>Pay Now</button></center>
                 )
             }
         </div>
