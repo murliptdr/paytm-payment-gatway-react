@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 const PaytmChecksum = require('./paytmChecksum');
 const https = require('https');
 
 export function PaytmButton () {
-
+    const {payamount} = useParams()
     const [paymentData, setPaymentData] = useState({
         token: "", 
         order: "", 
@@ -11,11 +12,11 @@ export function PaytmButton () {
         amount: ""
     });
     const [loading, setLoading] = useState(false);
-    const [money, setMoney] = useState(null);
+    const [money, setMoney] = useState(payamount);
 
     useEffect(() => {
         initialize();
-    }, [money]);
+    }, [payamount]);
 
     const initialize = () => {
         let orderId = 'Order_'+new Date().getTime();

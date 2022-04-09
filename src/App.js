@@ -1,11 +1,15 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { PaytmButton } from './paytm-button/paytmButton';
 
 function App() {
   return (
-    <div>
-      <PaytmButton />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/payment/:payamount" element={<PaytmButton />}/>
+         
+      </Routes>
+    </BrowserRouter>
   );
 }
 
